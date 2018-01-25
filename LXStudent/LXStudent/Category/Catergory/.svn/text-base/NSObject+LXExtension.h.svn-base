@@ -1,0 +1,16 @@
+//
+//  NSObject+LXExtension.h
+//  linktrustEduTeacher
+//
+//  Created by linktrusts on 2016/12/8.
+//  Copyright © 2016年 linktrust. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface NSObject (LXExtension)
+
+/** 获取当前对象的根视图控制器 */
+- (UIViewController *)objRootViewController;
+
+@end

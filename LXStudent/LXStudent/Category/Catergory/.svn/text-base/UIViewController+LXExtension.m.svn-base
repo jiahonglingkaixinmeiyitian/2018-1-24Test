@@ -1,0 +1,130 @@
+//
+//  UIViewController+LXExtension.m
+//  linktrustEduTeacher
+//
+//  Created by heartjhl on 16/12/16.
+//  Copyright © 2016年 linktrust. All rights reserved.
+//
+
+#import "UIViewController+LXExtension.h"
+
+#import <MessageUI/MessageUI.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
+
+@interface UIViewController ()<MFMessageComposeViewControllerDelegate>
+
+@end
+
+@implementation UIViewController (LXExtension)
+
+
+-(void)showMessageView:(NSArray *)phones title:(NSString *)title body:(NSString *)body
+{
+    if( [MFMessageComposeViewController canSendText] )
+    {
+        MFMessageComposeViewController * controller = [[MFMessageComposeViewController alloc] init];
+        controller.recipients = phones;
+        controller.navigationBar.tintColor = [UIColor blackColor];
+        controller.body = body;
+        controller.messageComposeDelegate = self;
+        [self presentViewController:controller animated:YES completion:nil];
+        //修改短信界面标题
+//        [[[[controller viewControllers] lastObject] navigationItem] setTitle:title];
+    }
+    else
+    {
+        [LXAlertController alertWithTitle:@"提示信息" message:@"该设备不支持短信功能" cancelActionTitle:@"确定" handler:^(UIAlertAction * _Nullable action) {
+            
+            
+        } viewController:self];
+    }
+}
+
+#pragma mark - MFMessageComposeViewController
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
+
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [controller dismissViewControllerAnimated:NO completion:nil];
+    
+    NSString *message=nil;
+    
+    switch (result) {
+        case MessageComposeResultSent:
+            //信息传送成功
+            message=@"信息传送成功";
+            
+            break;
+        case MessageComposeResultFailed:
+            //信息传送失败
+            message=@"信息传送失败";
+            
+            break;
+        case MessageComposeResultCancelled:
+            //信息被用户取消传送
+            message=@"信息被取消传送";
+            
+            break;
+        default:
+            break;
+    }
+    
+    BOOL isExist = [UIViewController isSIMInstalled];
+    if (isExist) {
+
+        [LXAlertController alertWithTitle:@"发送状态" message:message cancelActionTitle:@"确定" handler:^(UIAlertAction * _Nullable action) {
+            
+            
+        } viewController:self];
+
+        
+    }
+    
+}
+
+#pragma clang diagnostic pop
+
+
+// 判断设备是否安装sim卡
++ (BOOL)isSIMInstalled
+{
+    CTTelephonyNetworkInfo *networkInfo = [[CTTelephonyNetworkInfo alloc] init];
+    CTCarrier *carrier = [networkInfo subscriberCellularProvider];
+    
+    if (!carrier.isoCountryCode) {
+        kLog(@"没有安装SIM卡");
+        return NO;
+    }
+    return YES;
+}
+
+-(void)callCustomerService:(NSString *)telStr
+{
+    
+    if (telStr==nil||telStr.length==0) {
+        return;
+    }
+    NSString *stringURL =[NSString stringWithFormat:@"tel:%@",telStr];
+    
+    NSURL *url = [NSURL URLWithString:stringURL];
+    [[UIApplication sharedApplication] openURL:url];
+    
+//    _webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+//    [_webView loadRequest:[NSURLRequest requestWithURL:url]];
+}
+
+@end
+
+
+
+
+
+
+
+
+
+
+

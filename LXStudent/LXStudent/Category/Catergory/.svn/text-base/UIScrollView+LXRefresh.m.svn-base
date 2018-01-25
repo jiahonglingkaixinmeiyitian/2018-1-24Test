@@ -1,0 +1,39 @@
+//
+//  UIScrollView+LXRefresh.m
+//  ReLxEdu
+//
+//  Created by linktrusts on 2016/11/24.
+//  Copyright © 2016年 linktrust. All rights reserved.
+//
+
+#import "UIScrollView+LXRefresh.h"
+
+@implementation UIScrollView (LXRefresh)
+
+- (void)addHeaderRefresh:(void (^)())block {
+    self.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:block];
+}
+
+- (void)addFooterRefresh:(void (^)())block {
+    self.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:block];
+}
+
+- (void)beginHeaderRefresh {
+    [self.mj_header beginRefreshing];
+}
+
+- (void)endHeaderRefresh {
+    [self.mj_header endRefreshing];
+}
+
+- (void)endFooterRefresh {
+    [self.mj_footer endRefreshing];
+}
+
+-(BOOL)FooterIsRefreshing
+{
+    
+    return [self.mj_footer isRefreshing];
+}
+
+@end

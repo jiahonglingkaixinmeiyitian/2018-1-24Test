@@ -1,0 +1,41 @@
+//
+//  UIScrollView+LXRefresh.h
+//  ReLxEdu
+//
+//  Created by linktrusts on 2016/11/24.
+//  Copyright © 2016年 linktrust. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+#import <MJRefresh.h>
+
+@interface UIScrollView (LXRefresh)
+
+/**
+ * 添加头部刷新
+ */
+- (void)addHeaderRefresh:(void (^)())block;
+
+/**
+ * 添加底部刷新
+ */
+- (void)addFooterRefresh:(void (^)())block;
+
+/**
+ * 开始头部刷新
+ */
+- (void)beginHeaderRefresh;
+
+/**
+ * 结束头部刷新
+ */
+- (void)endHeaderRefresh;
+
+/**
+ * 结束底部刷新
+ */
+- (void)endFooterRefresh;
+-(BOOL)FooterIsRefreshing;
+
+@end

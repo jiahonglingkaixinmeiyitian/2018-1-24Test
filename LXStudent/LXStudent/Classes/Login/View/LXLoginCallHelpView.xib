@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LXLoginCallHelpView" customModule="LXStudent" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="174" height="31"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_Hotline" translatesAutoresizingMaskIntoConstraints="NO" id="RsX-2w-NRj">
+                    <rect key="frame" x="2" y="8.5" width="14" height="14"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J6t-MY-QuI">
+                    <rect key="frame" x="83" y="10" width="1" height="10"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="efB-Y1-d3f"/>
+                        <constraint firstAttribute="height" constant="10" id="pe7-vu-St3"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ivd-E2-elx">
+                    <rect key="frame" x="94" y="0.0" width="60" height="28"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="帮助中心?"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="40L-4C-u0F">
+                    <rect key="frame" x="19" y="1" width="54" height="28"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="联系客服"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="RsX-2w-NRj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="2" id="1VD-xa-KfD"/>
+                <constraint firstItem="J6t-MY-QuI" firstAttribute="top" secondItem="40L-4C-u0F" secondAttribute="bottom" constant="-19" id="2A3-2b-x8K"/>
+                <constraint firstItem="J6t-MY-QuI" firstAttribute="leading" secondItem="40L-4C-u0F" secondAttribute="trailing" constant="10" id="3su-Sc-kaZ"/>
+                <constraint firstItem="40L-4C-u0F" firstAttribute="leading" secondItem="RsX-2w-NRj" secondAttribute="trailing" constant="3" id="Fzc-6k-QcZ"/>
+                <constraint firstItem="Ivd-E2-elx" firstAttribute="leading" secondItem="J6t-MY-QuI" secondAttribute="trailing" constant="10" id="WUB-nH-lTr"/>
+                <constraint firstItem="RsX-2w-NRj" firstAttribute="top" secondItem="40L-4C-u0F" secondAttribute="bottom" constant="-20.5" id="crm-Hb-ABp"/>
+                <constraint firstItem="RsX-2w-NRj" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="jBl-VT-XsK"/>
+                <constraint firstItem="J6t-MY-QuI" firstAttribute="top" secondItem="Ivd-E2-elx" secondAttribute="bottom" constant="-18" id="rqN-ll-uHJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="callBut" destination="40L-4C-u0F" id="6se-An-TrE"/>
+                <outlet property="helpBut" destination="Ivd-E2-elx" id="0If-Tv-36C"/>
+            </connections>
+            <point key="canvasLocation" x="-56" y="-167.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="login_Hotline" width="14" height="14"/>
+    </resources>
+</document>

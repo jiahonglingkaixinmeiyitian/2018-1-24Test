@@ -1,0 +1,15 @@
+//
+//  UIViewController+LXDismissKeyboard.h
+//  linktrustEduStudent
+//
+//  Created by heartjhl on 16/12/26.
+//  Copyright © 2016年 linktrust. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UIViewController (LXDismissKeyboard)
+
+-(void)setDissmissKeyboard;
+
+@end

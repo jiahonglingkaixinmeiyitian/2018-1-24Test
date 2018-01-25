@@ -1,0 +1,20 @@
+//
+//  UINavigationBar+LXNavBarHitTest.m
+//  linktrustEduStudent
+//
+//  Created by linktrusts on 2017/2/22.
+//  Copyright © 2017年 linktrust. All rights reserved.
+//
+
+#import "UINavigationBar+LXNavBarHitTest.h"
+
+@implementation UINavigationBar (LXNavBarHitTest)
+
+// 每次想选中右上角的图片，结果总是触发“取消”事件，明明没有点到导航栏上面去，问题的原因不清楚，解决方法创建一个UINavigationBar的分类，重写hitTest方法
+// 如果触摸点不在它上面，就不让它接收用户交互，然后使用系统的事件处理方法去处理
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    self.userInteractionEnabled = [self pointInside:point withEvent:event];
+    return [super hitTest:point withEvent:event];
+}
+
+@end

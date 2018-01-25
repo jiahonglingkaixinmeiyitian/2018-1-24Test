@@ -1,0 +1,13 @@
+//
+//  UIAlertController+LXSupportedInterfaceOrientations.h
+//  linktrustEduTeacher
+//
+//  Created by linktrusts on 2017/2/27.
+//  Copyright © 2017年 linktrust. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UIAlertController (LXSupportedInterfaceOrientations)
+
+@end

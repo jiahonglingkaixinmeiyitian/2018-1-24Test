@@ -1,0 +1,86 @@
+//
+//  UIViewController+LXNavigationBar.h
+//  CategoryText
+//
+//  Created by linktrusts on 2016/12/7.
+//  Copyright © 2016年 linktrusts. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+typedef NS_ENUM(NSUInteger, BackType) {
+    BackTypePop,
+    BackTypeDismiss,
+};
+
+@interface UIViewController (LXNavigationBar)
+
+/**
+ 添加导航栏左侧返回按钮 -- 白色箭头
+ @param action 按钮点击方法
+ */
+- (void)addLeftItemWithPopAndMissAction:(SEL)action;
+
+
+/**
+ 添加导航栏左侧返回按钮 -- 白色箭头
+ 
+ @param backType 按钮返回方式 BackTypePop／BackTypeDismiss
+ */
+- (void)addLeftItemWithType:(BackType)backType;
+/**
+ 添加导航栏左侧返回按钮 -- 灰色箭头
+ 
+ @param backType 按钮返回方式 BackTypePop／BackTypeDismiss
+ */
+- (void)addLeftGrayItemWithType:(BackType)backType;
+/**
+ 添加导航栏右侧按钮
+
+ @param text 按钮的title
+ @param action 按钮点击方法
+ @param flag 添加标示
+ */
+- (void)addRightItemWithText:(NSString *)text action:(SEL)action andFlag:(NSString *)flag;
+
+/**
+ 添加导航栏右侧分享按钮
+
+ @param action 按钮点击方法
+ */
+- (void)addRightSharedItemWithAction:(SEL)action;
+
+/**
+ 添加导航栏右侧下一步按钮
+
+ @param text 按钮的title
+ @param action 按钮点击方法
+ */
+- (void)addRightNextItemWithText:(NSString *)text action:(SEL)action;
+
+- (void)addRightNextItemWithImage:(NSString *)imageName action:(SEL)action;
+
+/**
+ 添加导航栏右侧下一步按钮
+
+ @param buttonType 按钮类型
+ @param action 按钮点击方法
+ */
+- (void)addRightNextItemWithButtonType:(UIButtonType)buttonType action:(SEL)action;
+
+/**
+ 更改导航栏为透明
+ */
+- (void)changeNavigationStyle;
+
+/**
+ 更改导航栏为默认
+ */
+- (void)defaultNavigationStyle;
+
+/**
+ 在导航栏下添加一个View
+ */
+- (void)addNavigationBackView;
+
+@end

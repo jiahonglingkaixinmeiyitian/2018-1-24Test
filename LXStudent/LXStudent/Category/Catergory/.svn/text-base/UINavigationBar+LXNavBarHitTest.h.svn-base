@@ -1,0 +1,13 @@
+//
+//  UINavigationBar+LXNavBarHitTest.h
+//  linktrustEduStudent
+//
+//  Created by linktrusts on 2017/2/22.
+//  Copyright © 2017年 linktrust. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UINavigationBar (LXNavBarHitTest)
+
+@end

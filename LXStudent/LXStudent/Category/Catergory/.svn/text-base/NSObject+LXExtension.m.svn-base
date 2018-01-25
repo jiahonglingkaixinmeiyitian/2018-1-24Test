@@ -1,0 +1,18 @@
+//
+//  NSObject+LXExtension.m
+//  linktrustEduTeacher
+//
+//  Created by linktrusts on 2016/12/8.
+//  Copyright © 2016年 linktrust. All rights reserved.
+//
+
+#import "NSObject+LXExtension.h"
+
+@implementation NSObject (LXExtension)
+
+- (UIViewController *)objRootViewController {
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    return rootViewController;
+}
+
+@end

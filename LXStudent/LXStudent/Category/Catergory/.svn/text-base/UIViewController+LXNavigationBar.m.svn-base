@@ -1,0 +1,247 @@
+//
+//  UIViewController+LXNavigationBar.m
+//  CategoryText
+//
+//  Created by linktrusts on 2016/12/7.
+//  Copyright © 2016年 linktrusts. All rights reserved.
+//
+
+#import "UIViewController+LXNavigationBar.h"
+
+@interface UIViewController ()
+
+@property (nonatomic, copy) NSString *naviStateBarType;
+
+@end
+
+@implementation UIViewController (LXNavigationBar)
+
+- (void)addLeftItemWithType:(BackType)backType {
+    [self addLeftItemWithType:backType flag:@"normalItem"];
+}
+
+- (void)addLeftGrayItemWithType:(BackType)backType {
+    [self addLeftItemWithType:backType flag:@"garyItem"];
+}
+
+- (void)addLeftItemWithType:(BackType)backType flag:(NSString *)btnFlag {
+    
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    if ([btnFlag isEqualToString:@"garyItem"]) {
+        [backBtn setImage:[UIImage imageNamed:@"add_nav_back"] forState:UIControlStateNormal];
+        [backBtn setImage:[UIImage imageNamed:@"add_nav_back"] forState:UIControlStateHighlighted];
+    } else {
+        [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateHighlighted];
+    }
+    
+    backBtn.frame = CGRectMake(0, 0, 40, 40);
+    backBtn.layer.masksToBounds = YES;
+    backBtn.layer.cornerRadius = backBtn.frame.size.width/2.;
+    backBtn.contentMode = UIViewContentModeCenter;
+    if (backType == BackTypePop) {
+        [backBtn addTarget:self action:@selector(backWithPop:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    if (backType == BackTypeDismiss) {
+        [backBtn addTarget:self action:@selector(backWithDismiss:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -15;
+    self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
+    
+}
+
+- (void)addLeftItemWithPopAndMissAction:(SEL)action
+{
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateHighlighted];
+    
+    backBtn.frame = CGRectMake(0, 0, 40, 40);
+    
+    backBtn.layer.masksToBounds = YES;
+    backBtn.layer.cornerRadius = 20.0;
+    backBtn.contentMode = UIViewContentModeCenter;
+    [backBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -15;
+    
+    self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
+    
+}
+
+- (void)backWithPop:(UIButton *)sender {
+    [self.view endEditing:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)backWithDismiss:(UIButton *)sender {
+    [self.view endEditing:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)addRightItemWithText:(NSString *)text action:(SEL)action andFlag:(NSString *)flag {
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [backBtn setTitle:text forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    
+    if ([flag isEqualToString:@"lingxincoin"]) {
+        backBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    }else if ([flag isEqualToString:@"baoxian"]){
+        backBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    }else{
+        backBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        backBtn.layer.borderWidth = 1.0;
+        backBtn.layer.cornerRadius = 5.0;
+    }
+    
+    if ([text lx_isChinese]) {
+        backBtn.frame = CGRectMake(0, 0, text.length * 20 + 10, 30);
+    } else if ([text lx_isEnglish]) {
+        backBtn.frame = CGRectMake(0, 0, text.length * 10 + 10, 30);
+    } else if ([text lx_isSpecialCharacters]) {
+        backBtn.frame = CGRectMake(0, 0, text.length * 15 + 10, 30);
+    } else {
+        backBtn.frame = CGRectMake(0, 0, text.length * 20 + 10, 30);
+    }
+    
+    backBtn.contentMode = UIViewContentModeCenter;
+    [backBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -10;
+    
+    self.navigationItem.rightBarButtonItems = @[spaceItem, backItem];
+}
+
+- (void)addRightSharedItemWithAction:(SEL)action {
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    backBtn.backgroundColor = [UIColor redColor];
+    
+    backBtn.frame = CGRectMake(0, 0, 40, 40);
+    [backBtn setTitle:@"分享" forState:UIControlStateNormal];
+    
+    backBtn.layer.masksToBounds = YES;
+    backBtn.layer.cornerRadius = 20.0;
+    backBtn.contentMode = UIViewContentModeCenter;
+
+    [backBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -10;
+    
+    self.navigationItem.rightBarButtonItems = @[spaceItem, backItem];
+}
+
+- (void)addRightNextItemWithText:(NSString *)text action:(SEL)action {
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [backBtn setTitle:text forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    backBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+
+//    backBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+//    backBtn.layer.borderWidth = 1.0;
+//    backBtn.layer.cornerRadius = 5.0;
+    
+    if ([text lx_isChinese]) {
+        backBtn.frame = CGRectMake(0, 0, text.length * 20 + 10, 30);
+    } else if ([text lx_isEnglish]) {
+        backBtn.frame = CGRectMake(0, 0, text.length * 10 + 10, 30);
+    } else if ([text lx_isSpecialCharacters]) {
+        backBtn.frame = CGRectMake(0, 0, text.length * 15 + 10, 30);
+    } else {
+        backBtn.frame = CGRectMake(0, 0, text.length * 20 + 10, 30);
+    }
+    
+    backBtn.contentMode = UIViewContentModeCenter;
+    [backBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -10;
+    
+    self.navigationItem.rightBarButtonItems = @[spaceItem, backItem];
+}
+
+- (void)addRightNextItemWithImage:(NSString *)imageName action:(SEL)action {
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [backBtn setImage:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [backBtn setImage:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateHighlighted];
+
+    backBtn.frame = CGRectMake(0, 0, 40, 40);
+    backBtn.contentMode = UIViewContentModeCenter;
+    [backBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -10;
+    
+    self.navigationItem.rightBarButtonItems = @[spaceItem, backItem];
+}
+
+- (void)addRightNextItemWithButtonType:(UIButtonType)buttonType action:(SEL)action {
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+
+    backBtn.frame = CGRectMake(0, 0, 35, 30);
+    [backBtn setTintColor:[UIColor colorWithHexStr:@"#ffffff"]];
+    backBtn.contentMode = UIViewContentModeCenter;
+    [backBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    spaceItem.width = -10;
+    
+    self.navigationItem.rightBarButtonItems = @[spaceItem, backItem];
+}
+
+
+- (void)changeNavigationStyle {
+    [self.navigationController.navigationBar setTranslucent:YES];
+    // 设置导航栏透明
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    // 设置导航栏底部线透明
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init] ];
+    // 设置 导航栏 字体
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:17], NSForegroundColorAttributeName : [UIColor colorWithHexStr:@"ffffff"]}];
+
+    // 设置状态栏黑色
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
+- (void)defaultNavigationStyle {
+    // 设置不透明
+    [self.navigationController.navigationBar setTranslucent:NO];
+    // 设置导航栏的颜色
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHexStr:defaultBackgroundColor]];
+    
+    // 设置 导航栏 字体大小、颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:17], NSForegroundColorAttributeName : [UIColor colorWithHexStr:@"ffffff"]}];
+    
+    // 设置状态栏白色
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
+
+- (void)addNavigationBackView {
+    UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, -64, kScreenW, 64)];
+    tempView.backgroundColor = [UIColor colorWithHexStr:defaultBackgroundColor];
+    [self.view addSubview:tempView];
+}
+
+@end

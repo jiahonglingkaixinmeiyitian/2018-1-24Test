@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LXLoginTextView" customModule="LXStudent" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="315" height="49"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bZ-T2-ZiM">
+                    <rect key="frame" x="0.0" y="0.0" width="315" height="49"/>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Profile_Default" translatesAutoresizingMaskIntoConstraints="NO" id="GWr-oZ-UhT">
+                    <rect key="frame" x="14" y="18" width="16" height="13"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="ZPF-3b-scQ"/>
+                        <constraint firstAttribute="height" constant="13" id="kSj-f5-1N6"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lmt-og-6eJ">
+                    <rect key="frame" x="39" y="0.0" width="276" height="49"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Lmt-og-6eJ" secondAttribute="bottom" id="9Xf-Ez-l2V"/>
+                <constraint firstItem="GWr-oZ-UhT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="14" id="Fv3-Yx-5tf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1bZ-T2-ZiM" secondAttribute="trailing" id="KtD-bn-f6X"/>
+                <constraint firstItem="GWr-oZ-UhT" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="TaV-cV-d3T"/>
+                <constraint firstItem="Lmt-og-6eJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="VjA-lh-Jka"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lmt-og-6eJ" secondAttribute="trailing" id="b4N-BG-FCf"/>
+                <constraint firstItem="1bZ-T2-ZiM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="dpz-cI-9Ak"/>
+                <constraint firstItem="1bZ-T2-ZiM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="jJA-MX-tO3"/>
+                <constraint firstItem="Lmt-og-6eJ" firstAttribute="leading" secondItem="GWr-oZ-UhT" secondAttribute="trailing" constant="9" id="wkt-Cc-Zkr"/>
+                <constraint firstItem="1bZ-T2-ZiM" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="znp-SE-hXu"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="backBut" destination="1bZ-T2-ZiM" id="FwC-xt-bVx"/>
+                <outlet property="commonTextField" destination="Lmt-og-6eJ" id="Wfd-wB-F9e"/>
+                <outlet property="leftImageView" destination="GWr-oZ-UhT" id="Ipz-7p-Maw"/>
+            </connections>
+            <point key="canvasLocation" x="29.5" y="-24.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Profile_Default" width="15" height="15"/>
+    </resources>
+</document>

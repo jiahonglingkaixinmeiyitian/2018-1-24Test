@@ -1,0 +1,154 @@
+//
+//  UIView+LXBadge.m
+//  linktrustEduStudent
+//
+//  Created by mengyueping on 2017/5/17.
+//  Copyright © 2017年 linktrust. All rights reserved.
+//
+
+#import "UIView+LXBadge.h"
+#import <objc/runtime.h>
+
+static char badgeViewKey;
+static NSInteger const pointWidth = 6; //小红点的宽高
+static NSInteger const rightRange = 10; //距离控件右边的距离
+static CGFloat const badgeFont = 9;    //字体的大小
+
+#define TabbarItemNums 4.0
+
+@implementation UIView (LXBadge)
+
+#pragma mark - 接口
+
+/**
+ *  显示小红点
+ */
+- (void)showBadge
+{
+    if (self.badge == nil) {
+        CGRect frame = CGRectMake(CGRectGetWidth(self.frame)- pointWidth - rightRange, rightRange, pointWidth, pointWidth);
+        
+        self.badge = [[UILabel alloc] initWithFrame:frame];
+        self.badge.backgroundColor = [UIColor redColor];
+        self.badge.layer.masksToBounds = YES;
+        self.badge.layer.cornerRadius = pointWidth / 2;
+        
+        [self addSubview:self.badge];
+        [self bringSubviewToFront:self.badge];
+    }
+}
+
+/**
+ * 显示几个小红点儿
+ * parameter redCount 小红点儿个数
+ */
+- (void)showBadgeWithCount:(NSInteger)redCount
+{
+    if (redCount < 0) {
+        return;
+    }
+    
+    [self showBadge];
+    self.badge.textColor = [UIColor whiteColor];
+    self.badge.font = [UIFont systemFontOfSize:badgeFont];
+    self.badge.textAlignment = NSTextAlignmentCenter;
+    self.badge.text = (redCount > 99 ? [NSString stringWithFormat:@"99+"] : [NSString stringWithFormat:@"%@", @(redCount)]);
+    [self.badge sizeToFit];
+    
+    CGRect frame = self.badge.frame;
+    frame.size.width += 4;
+    frame.size.height += 4;
+    frame.origin.y = -frame.size.height / 2;
+    
+    if (CGRectGetWidth(frame) < CGRectGetHeight(frame)) {
+        frame.size.width = CGRectGetHeight(frame);
+    }
+    self.badge.frame = frame;
+    self.badge.layer.cornerRadius = CGRectGetHeight(self.badge.frame) / 2;
+}
+
+/**
+ * Btn显示几个小红点儿
+ * parameter redCount 小红点儿个数
+ */
+- (void)showBtnBadgeWithCount:(NSInteger)redCount
+{
+    if (redCount < 1) {
+        return;
+    }
+    
+    if (self.badge == nil) {
+        CGRect frame = CGRectMake(kScreenW -YFLoatChange(20) -YFLoatChange(30), YFLoatChange(12), YFLoatChange(20), YFLoatChange(20));
+        
+        self.badge = [[UILabel alloc] initWithFrame:frame];
+        self.badge.backgroundColor = [UIColor colorWithHexStr:@"ff5050"];
+        self.badge.layer.masksToBounds = YES;
+        self.badge.layer.cornerRadius = YFLoatChange(10);
+        
+        [self addSubview:self.badge];
+        [self bringSubviewToFront:self.badge];
+    }
+    
+    self.badge.textColor = [UIColor whiteColor];
+    self.badge.font = [UIFont systemFontOfSize:YFLoatChange(12)];
+    self.badge.textAlignment = NSTextAlignmentCenter;
+    self.badge.text = (redCount > 99 ? [NSString stringWithFormat:@"99+"] : [NSString stringWithFormat:@"%@", @(redCount)]);
+//    [self.badge sizeToFit];
+}
+
+/**
+ *  隐藏小红点
+ */
+- (void)hidenBadge
+{
+    if (self.badge != nil) {
+        [self.badge removeFromSuperview];
+        self.badge = nil;        
+    }
+}
+
+#pragma mark - runtime GetterAndSetter
+
+- (UILabel *)badge
+{
+    //通过runtime创建一个UILabel的属性
+    return objc_getAssociatedObject(self, &badgeViewKey);
+}
+
+- (void)setBadge:(UILabel *)badge
+{
+    objc_setAssociatedObject(self, &badgeViewKey, badge, OBJC_ASSOCIATION_RETAIN);
+}
+
+//显示红点
+- (void)showBadgeOnItmIndex:(int)index{
+    [self removeBadgeOnItemIndex:index];
+    //新建小红点
+    UIView *bview = [[UIView alloc]init];
+    bview.tag = 888+index;
+    bview.layer.cornerRadius = YFLoatChange(4);
+    bview.clipsToBounds = YES;
+    bview.backgroundColor = [UIColor redColor];
+    CGRect tabFram = self.frame;
+    
+    float percentX = (index+0.6)/TabbarItemNums;
+    CGFloat x = ceilf(percentX*tabFram.size.width);
+    CGFloat y = ceilf(0.1*tabFram.size.height);
+    bview.frame = CGRectMake(x, y, YFLoatChange(8), YFLoatChange(8));
+    [self addSubview:bview];
+    [self bringSubviewToFront:bview];
+}
+//隐藏红点
+-(void)hideBadgeOnItemIndex:(int)index{
+    [self removeBadgeOnItemIndex:index];
+}
+//移除控件
+- (void)removeBadgeOnItemIndex:(int)index{
+    for (UIView*subView in self.subviews) {
+        if (subView.tag == 888+index) {
+            [subView removeFromSuperview];
+        }
+    }
+}
+
+@end

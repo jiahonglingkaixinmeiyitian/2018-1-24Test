@@ -1,0 +1,39 @@
+//
+//  UIViewController+LXDismissKeyboard.m
+//  linktrustEduStudent
+//
+//  Created by heartjhl on 16/12/26.
+//  Copyright © 2016年 linktrust. All rights reserved.
+//
+
+#import "UIViewController+LXDismissKeyboard.h"
+
+@implementation UIViewController (LXDismissKeyboard)
+
+-(void)setDissmissKeyboard
+{
+    NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapViewToKeyboardDismiss:)];
+    NSOperationQueue *mainQueue=[NSOperationQueue mainQueue];
+    
+    __weak UIViewController *weakSelf = self;
+    
+[notification addObserverForName:UIKeyboardWillShowNotification object:nil queue:mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+    
+    [weakSelf.view addGestureRecognizer:tap];
+}];
+    
+   [notification addObserverForName:UIKeyboardWillHideNotification object:nil queue:mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+       
+       [weakSelf.view addGestureRecognizer:tap];
+   }];
+}
+
+-(void)tapViewToKeyboardDismiss:(UITapGestureRecognizer *)tap
+{
+    [self.view endEditing:YES];
+    [self.navigationItem.titleView endEditing:YES];
+    
+}
+
+@end

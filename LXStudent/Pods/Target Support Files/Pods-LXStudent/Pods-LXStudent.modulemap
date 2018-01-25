@@ -1,0 +1,6 @@
+framework module Pods_LXStudent {
+  umbrella header "Pods-LXStudent-umbrella.h"
+
+  export *
+  module * { export * }
+}

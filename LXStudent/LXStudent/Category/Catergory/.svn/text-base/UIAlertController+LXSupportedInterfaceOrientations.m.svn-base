@@ -1,0 +1,24 @@
+//
+//  UIAlertController+LXSupportedInterfaceOrientations.m
+//  linktrustEduTeacher
+//
+//  Created by linktrusts on 2017/2/27.
+//  Copyright © 2017年 linktrust. All rights reserved.
+//
+
+#import "UIAlertController+LXSupportedInterfaceOrientations.h"
+
+@implementation UIAlertController (LXSupportedInterfaceOrientations)
+
+// 添加分类方法，避免递归调用
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
+- (NSUInteger)supportedInterfaceOrientations; {
+    return UIInterfaceOrientationMaskPortrait;
+}
+#else
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+#endif
+
+@end
